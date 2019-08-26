@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 
 /**
@@ -79,6 +80,18 @@ public class UserController {
         if (user == null){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
+        return ResponseEntity.ok(user);
+    }
+
+
+
+    /**
+     * @return
+     */
+    @GetMapping("list")
+    public ResponseEntity<List<User>> queryUserList(){
+        List<User> user = userService.queryUserList();
+
         return ResponseEntity.ok(user);
     }
 

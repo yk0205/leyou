@@ -3,6 +3,8 @@ package com.leyou.user.service;
 
 import com.leyou.user.pojo.User;
 
+import java.util.List;
+
 /**
  * @Author: 98050
  * @Time: 2018-10-21 18:41
@@ -47,4 +49,8 @@ public interface UserService {
      * @return
      */
     boolean updatePassword(String username, String oldPassword, String newPassword);
+
+    List<User> queryUserList();
+
+
 }

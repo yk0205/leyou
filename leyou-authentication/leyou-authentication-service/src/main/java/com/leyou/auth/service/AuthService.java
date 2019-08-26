@@ -1,5 +1,9 @@
 package com.leyou.auth.service;
 
+import com.leyou.user.pojo.User;
+
+import java.util.List;
+
 /**
  * @Author: 98050
  * @Time: 2018-10-23 22:46
@@ -13,4 +17,8 @@ public interface AuthService {
      * @return
      */
     String authentication(String username, String password);
+
+    List<User> getList();
+
+
 }

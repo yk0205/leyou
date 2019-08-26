@@ -13,10 +13,7 @@ import org.springframework.data.redis.core.BoundHashOperations;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -185,5 +182,11 @@ public class UserServiceImpl implements UserService {
         BoundHashOperations<String,Object,Object> hashOperations = this.stringRedisTemplate.boundHashOps(KEY_PREFIX+username);
         hashOperations.delete(username);
         return true;
+    }
+
+    @Override
+    public List<User> queryUserList() {
+
+        return userMapper.selectAll();
     }
 }

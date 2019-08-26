@@ -9,6 +9,8 @@ import com.leyou.user.pojo.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * @Author: 98050
  * @Time: 2018-10-23 22:47
@@ -34,7 +36,7 @@ public class AuthServiceImpl implements AuthService {
 
         try{
             //1.调用微服务查询用户信息
-            User user = this.userClient.queryUser(username,password);
+            User user = userClient.queryUser(username,password);
             //2.查询结果为空，则直接返回null
             if (user == null){
                 return null;
@@ -49,4 +51,12 @@ public class AuthServiceImpl implements AuthService {
             return null;
         }
     }
+
+    @Override
+    public List<User> getList() {
+
+        return userClient.queryUserList();
+    }
+
+
 }

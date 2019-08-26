@@ -17,4 +17,16 @@ public class CodecUtils {
     public static Boolean passwordConfirm(String rawPassword,String encodePassword){
         return new BCryptPasswordEncoder().matches(rawPassword,encodePassword);
     }
+
+    public static void main(String[] args) {
+        String username = "yangkai";
+        String password = "123";
+        String jiamiok = passwordBcryptEncode(username, password);
+        System.out.println(jiamiok);
+        Boolean aBoolean = passwordConfirm(username + password, "$2a$10$3MCwY7HD3TWuMYLtMURvqu7OWUbFuybPux3O/C9CjgYGykpx./gKa");
+        System.out.println(aBoolean);
+
+
+    }
+
 }
