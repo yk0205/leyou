@@ -11,7 +11,6 @@
     <modules>
         <module>leyou-common</module>
         <module>leyou-gateway</module>
-        <module>leyou-item</module>
         <module>leyou-registry</module>
         <module>leyou-authentication</module>
         <module>leyou-user</module>
@@ -95,6 +94,18 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-starter-data-redis</artifactId>
                 <version>${redis.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-webmvc</artifactId>
+                <version>${spring.webmvc.version}</version>
+            </dependency>
+
+            <!--Thymeleaf模板-->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-thymeleaf</artifactId>
+                <version>${thymeleaf.version}</version>
             </dependency>
 
 

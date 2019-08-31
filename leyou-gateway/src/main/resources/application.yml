@@ -12,6 +12,11 @@ eureka:
     prefer-ip-address: true
     ip-address: 127.0.0.1
 zuul:
-
-
+  prefix: /api
+  routes:
+    item-service: /item/**
+    user-service: /user/**
+    auth-service: /auth/**
+  add-host-header: true
+  sensitive-headers:
 

@@ -7,9 +7,24 @@ eureka:
   client:
     service-url:
       defaultZone: http://127.0.0.1:10086/eureka
+  instance:
+    prefer-ip-address: true
+    ip-address: 127.0.0.1
+#feign客户端启动hystrix断路保护
 feign:
   hystrix:
     enabled: true
+ribbon:
+  ReadTimeout: 5000  #处理超时时间 默认5秒
+  ConnectTimeout: 2000 #连接超时时间 默认2秒
+
+hystrix:
+  command:
+      default:
+        execution:
+          isolation:
+            thread:
+              timeoutInMilliseconds: 5000 #断路切换超时
 
 leyou:
   jwt:

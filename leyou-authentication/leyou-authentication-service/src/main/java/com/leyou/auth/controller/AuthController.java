@@ -46,7 +46,7 @@ public class AuthController {
      * @param response
      * @return
      */
-    @GetMapping("accredit")
+    @PostMapping("accredit")
     public ResponseEntity<Void> authentication(HttpServletRequest request, HttpServletResponse response,
                                                @RequestParam("username") String username,
                                                @RequestParam("password") String password) {
@@ -58,7 +58,7 @@ public class AuthController {
         //2.将token写入cookie，并指定httpOnly为true，防止通过js获取和修改
         CookieUtils.setCookie(request, response, properties.getCookieName(), token, properties.getCookieMaxAge(), true);
 
-        return ResponseEntity.ok().build();
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @GetMapping("list")
