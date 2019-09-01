@@ -1,6 +1,8 @@
 HELP.md
+*.class
 /target/
-*/target/*
+
+
 !.mvn/wrapper/maven-wrapper.jar
 
 ### STS ###

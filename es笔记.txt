@@ -1,0 +1,241 @@
+PUT heima/_mapping/goods
+{
+  "properties": {
+    "title":{
+      "type": "text",
+     "analyzer": "ik_max_word"
+    },
+    "images":{
+      "type": "keyword",
+      "index": false
+    },
+    "price":{
+      "type": "float"
+    }
+  }
+}
+GET heima/_mapping
+
+POST heima/goods/
+{
+  "title":"小米手机",
+  "images": "http://image.leyou.com/12479112.jpg",
+  "price":"2699.00"
+}
+
+GET /heima/_search
+{
+  "query": {
+    "match_all": {}
+  }
+}
+
+POST heima/goods/1
+{
+  "title":"大米手机",
+  "images": "http://image.leyou.com/12479112.jpg",
+  "price":"2799.00"
+}
+
+POST heima/goods/2
+{
+  "title":"大米手机",
+  "images": "http://image.leyou.com/12479112.jpg",
+  "price":"2799.00",
+  "saleable":true
+
+}
+// 精准查询 小米手机
+GET /heima/_search
+{
+  "query": {
+    "match": {
+      "title": {
+        "query": "小米手机",
+        "operator": "and"
+      }
+    }
+  }
+}
+# 分词模糊查询 小米/手机
+GET /heima/_search
+{
+  "query": {
+    "match": {
+      "title": "小米手机"
+    }
+  }
+}
+
+#多字段查询
+GET /heima/_search
+{
+  "query": {
+    "multi_match": {
+      "query": "小米",
+      "fields": ["title","subTitle"]
+    }
+  }
+}
+#词条查询
+GET /heima/_search
+{
+  "query": {
+    "term": {
+      "title": {
+        "value": "小米手机"
+      }
+    }
+  }
+}
+#分词百分比查询查询
+GET /heima/_search
+{
+  "query": {
+    "match": {
+      "title": {
+        "query": "小米手机电视",
+        "minimum_should_match": "15%"
+      }
+    }
+  }
+}
+
+
+#结果集过滤
+GET /heima/_search
+{
+  "_source": ["title","price"],
+  "query": {
+    "terms": {
+      "title": [
+        "小米",
+        "华为"
+       ]
+    }
+  }
+}
+#结果集过滤-只包含images字段
+GET /heima/_search
+{
+  "_source":{
+    "includes": "images"
+  },
+  "query": {
+    "terms": {
+      "title": [
+        "小米",
+        "华为"
+        ]
+    }
+  }
+}
+
+
+#结果集过滤，不包含images字段
+GET /heima/_search
+{
+  "_source":{
+    "excludes": "images"
+  },
+  "query": {
+    "terms": {
+      "title": [
+        "小米",
+        "华为"
+        ]
+    }
+  }
+}
+#高级bool查询
+GET /heima/_search
+{
+  "query": {
+    "bool": {
+      "must": [
+        {"match": { "title": "小米" } },
+        {
+          "terms": {
+            "price": ["2799.00","9999.00"]
+          }
+        }
+      ]
+    }
+  }
+}
+
+#范围查询
+GET /heima/_search
+{
+  "query": {
+    "range": {
+      "price": {
+        "gte": 4000,
+        "lte": 10000
+      }
+    }
+  }
+}
+
+#迷糊查询
+GET /heima/_search
+{
+  "query": {
+    "fuzzy": {
+      "title": {
+        "value": "米",
+        "fuzziness": 2
+      }
+    }
+  }
+}
+
+#降序排列
+GET /heima/_search
+{
+  "query": {
+    "constant_score": {
+      "filter": {
+        "range": {
+         "price": {
+           "gte": 4000,
+            "lte": 10000
+          }
+        }
+      }
+    }
+  },
+  "sort": [
+    {
+      "price": {
+        "order": "desc"
+      }
+    },
+    {
+      "_id": {
+        "order": "desc"
+      }
+    }
+  ]
+}
+
+#创建索引库
+PUT /cars
+{
+  "settings": {
+    "number_of_shards": 1,
+    "number_of_replicas": 0
+  },
+  "mappings": {
+    "transactions":{
+      "properties":{
+        "color":{
+          "type":"keyword"
+        },
+        "make":{
+          "type":"keyword"
+        }
+      }
+    }
+  }
+}
